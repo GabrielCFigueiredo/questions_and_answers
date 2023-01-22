@@ -1,10 +1,17 @@
 const express = require("express");
-const cors = require("cors")
+const cors = require("cors");
+const connection = require("./database/database");
 
 const app = express();
 
 app.use(cors())
 app.use(express.json());
+
+connection.authenticate().then(() => {
+    console.log('conexao com banco de dados');
+}).catch((erro) => {
+    console.log(erro);
+})
 
 app.get("/", (req,res) => {
     res.send("seja bem vindo")
