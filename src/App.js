@@ -1,8 +1,9 @@
+import Questions from "./components/Questions/questions";
 
 function App() {
   return (
     <div>
-      teste
+      <Questions />
     </div>
   );
 }
