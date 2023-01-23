@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import List from './components/List/List';
 import { Navbar } from 'react-bootstrap';
 import Questions from './components/Questions/questions';
+import QuestionsId from './components/QuestionsId/questionsId';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/questions",
     element: <Questions />,
+  },
+  {
+    path: "/questions/:id",
+    element: <QuestionsId />,
   },
 ]);
 

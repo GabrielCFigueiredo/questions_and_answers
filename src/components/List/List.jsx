@@ -30,7 +30,9 @@ export default function List(params) {
               <p>{list.description}</p>
             </div>
             <div className="card-footer">
+              <Link to={`/questions/${list.id}`}>
                 <Button variant="primary">Responder</Button>
+              </Link>
             </div>
           </Card>
         );
