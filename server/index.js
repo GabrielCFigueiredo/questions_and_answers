@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require('body-parser')
 const connection = require("./database/database");
-const questions = require("./database/Questions_model")
+const questions = require("./database/Questions_model");
+const Answer = require("./database/answer")
 
 const app = express();
 
@@ -18,7 +19,9 @@ connection.authenticate().then(() => {
 })
 
 app.get("/", async (req,res) => {
-   const q = await questions.findAll({raw: true})
+   const q = await questions.findAll({raw: true, order: [
+    ["id","DESC"]// DESC DECRESCENTE ASC CRESCENTE
+   ]})
         res.status(200).send(q)
 })
 
@@ -34,6 +37,14 @@ app.post("/questions", async (req,res) => {
         res.redirect('/');
         res.send({resposta})
     })
+})
+
+app.get("/questions/:id", async (req,res) => {
+    const id = req.params.id;
+    const ques = await questions.findOne({
+        where: {id: id}
+    })
+    res.send(ques)
 })
 
 app.listen(8080, () => console.log("app rodando"))
