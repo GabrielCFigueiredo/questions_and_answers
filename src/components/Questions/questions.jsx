@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Questions(params) {
 
@@ -15,9 +16,9 @@ export default function Questions(params) {
     }
 
     const handleClickButton = () => {
-        axios.post("http://localhost:8080/register", {
-            titulo: values.titulo,
-            descricao: values.descricao
+        axios.post("http://localhost:8080/questions", {
+            title: values.title,
+            description: values.description
         }).then((res) => {
             console.log(res.data);
         }).catch((error) => {
@@ -32,7 +33,7 @@ export default function Questions(params) {
             <h1>Faça sua pergunta</h1>
           </div>
           <div>
-            <input placeholder="Titulo" className="form-control" name="titulo" onChange={handleChangeValues} />
+            <input placeholder="Titulo" className="form-control" name="title" onChange={handleChangeValues} />
           </div>
           <label>Descrição</label>
           <div className="form-floating">
@@ -40,14 +41,14 @@ export default function Questions(params) {
               placeholder="descrição da pergunta"
               className="form-control"
               style={{height: 300}}
-              name="descricao"
+              name="description"
               onChange={handleChangeValues}
             >
             </textarea>
           </div>
-          <div>
+          <Link to={'/'}>
             <Button onClick={() => handleClickButton()} variant="primary">Perguntar</Button>{" "}
-          </div>
+          </Link>
         </form>
       </Container>
     </div>

@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const connection = require("./database/database");
+const questions = require("./database/Questions_model")
 
 const app = express();
 
@@ -17,11 +18,16 @@ app.get("/", (req,res) => {
     res.send("seja bem vindo")
 })
 
-app.post("/register", (req,res) => {
-    const titulo = req.body.titulo
-    const descricao = req.body.descricao
+app.post("/questions", (req,res) => {
+    const title = req.body.title
+    const description = req.body.description
 
-    console.log(titulo);
+    questions.create({
+        title: title,
+        description: description
+    }).then(() => {
+        res.redirect('/');
+    })
 })
 
 app.listen(8080, () => console.log("app rodando"))
