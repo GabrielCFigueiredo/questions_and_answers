@@ -16,7 +16,7 @@ export default function List(params) {
         console.log(error.res);
       });
   }, []);
-  console.log(listQuestions);
+
   return (
     <Container className="d-grid gap-3">
       <h1>Lista de Perguntas</h1>
@@ -25,12 +25,15 @@ export default function List(params) {
       </Link>
       {listQuestions?.map((list) => {
         return (
-          <Card>
+          <Card key={list.id}>
             <div className="card-body">
-              <p>{list.description}</p>
+              <p>{list?.title}</p>
+            </div>
+            <div className="card-body">
+              <p>{list?.description}</p>
             </div>
             <div className="card-footer">
-              <Link to={`/questions/${list.id}`}>
+              <Link to={`/questions/${list?.id}`}>
                 <Button variant="primary">Responder</Button>
               </Link>
             </div>
