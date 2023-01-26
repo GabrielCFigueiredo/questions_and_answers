@@ -1,3 +1,4 @@
+import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
@@ -15,7 +16,8 @@ export default function List(params) {
       .catch((error) => {
         console.log(error.res);
       });
-  }, []);
+  }, [listQuestions]);
+
 
   return (
     <Container className="d-grid gap-3">
@@ -27,10 +29,10 @@ export default function List(params) {
         return (
           <Card key={list.id}>
             <div className="card-body">
-              <p>{list?.title}</p>
+              <p>Titulo: {list?.title}</p>
             </div>
             <div className="card-body">
-              <p>{list?.description}</p>
+              <p>Descrição: {list?.description}</p>
             </div>
             <div className="card-footer">
               <Link to={`/questions/${list?.id}`}>
