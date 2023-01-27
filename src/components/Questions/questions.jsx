@@ -48,7 +48,7 @@ export default function Questions(params) {
             </textarea>
           </div>
           <Link to={'/'}>
-            <Button onClick={() => handleClickButton()} variant="primary">Perguntar</Button>{" "}
+            <Button onClick={() => handleClickButton()} style={{ backgroundColor: "#777764" }} className='border border-white'>Perguntar</Button>{" "}
           </Link>
         </form>
       </Container>

@@ -2,13 +2,16 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Card, Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function QuestionsId() {
   const [listId, setListId] = useState();
   const [idList, setIdList] = useState();
+  const [lista, setLista] = useState();
+  const [createAnswer, setCreateAnswer] = useState();
+
   const [values, setValues] = useState();
-  const [list, setList] = useState();
+  
 
   useEffect(() => {
     if (listId) {
@@ -17,52 +20,59 @@ export default function QuestionsId() {
   }, [listId]);
 
   const { id } = useParams();
-  console.log(id);
 
   const handleBody = (e) => {
-    setValues(e.target.value)
-  }
+    setValues(e.target.value);
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:8080/questions/${id}`)
       .then((res) => {
         setListId(res.data);
-        setList(res.data.resposta)
-        console.log("dd",res.data);
-        console.log("resposta",res.data.resposta);
+        setLista(res.data.resposta);
       })
       .catch((error) => {
         console.log(error.res);
       });
-  }, [id]);
+  }, [id, setLista]);
 
   const handleClickButton = () => {
-   axios.post("http://localhost:8080/answer", {
-    body: values,
-    perguntumId: idList
-   }).then((res) => {
-    console.log(res);
-   }).catch((error) => {
-    console.log(error);
-   })
-}
+    axios
+      .post("http://localhost:8080/answer", {
+        body: values,
+        perguntumId: idList,
+      })
+      .then((res) => {
+        setCreateAnswer(res)
 
-console.log("teste", list);
- 
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
-      <Container className="p-4">
+      <Container className="p-4 d-grid gap-3 ">
         <Card>
-          <p>{listId?.description}</p>
+          <Card.Body className="rounded">
+            <Card.Title className="fw-bolder">
+              Titulo: {listId?.title}
+            </Card.Title>
+            <Card.Text className="fw-normal">
+              Descrição: {listId?.description}
+            </Card.Text>
+          </Card.Body>
         </Card>
+
         <form className="d-grid gap-3">
           <label>Resposta:</label>
           <div className="form-floating">
             <textarea
               placeholder="descrição da pergunta"
               className="form-control"
-              style={{ height: 300 }}
+              style={{ height: 200 }}
               name="body"
               onChange={handleBody}
             ></textarea>
@@ -70,20 +80,16 @@ console.log("teste", list);
           <div>
             <input type="hidden" name="perguntumId" value={listId?.id} />
           </div>
-          <Button onClick={() => handleClickButton()} variant="primary">
-            Voltar
-          </Button>{" "}
+          <Link to={"/"}>
+            <Button
+              onClick={() => handleClickButton()}
+              className="border border-white"
+              style={{ backgroundColor: "#777764" }}
+            >
+              Voltar para as Perguntas
+            </Button>
+          </Link>
         </form>
-        {
-          list?.map((lt) => {
-            return (
-            <div>
-              {lt.body}
-            </div>
-            )
-          })
-        }
-        
       </Container>
     </div>
   );

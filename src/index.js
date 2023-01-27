@@ -1,40 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import List from './components/List/List';
-import { Navbar } from 'react-bootstrap';
-import Questions from './components/Questions/questions';
-import QuestionsId from './components/QuestionsId/questionsId';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.min.css";
+import reportWebVitals from "./reportWebVitals";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <List />,
-  },
-  {
-    path: "/questions",
-    element: <Questions />,
-  },
-  {
-    path: "/questions/:id",
-    element: <QuestionsId />,
-  },
-  
-]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Navbar className="px-4" bg="dark" >
-          <Navbar className="text-white" href="#home">Perguntar.com</Navbar>
-    </Navbar>
-    <RouterProvider router={router} />
-    <App />
-  </React.StrictMode>
+      <App />
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -66,11 +66,25 @@ app.post("/answer", async (req, res) => {
     perguntumId: perguntumId
   })
     .then((res) => {
-      console.log(res);
+      res.status(200).send(res)
     })
     .catch((error) => {
       console.log(error);
     });
 });
+
+app.get("/answer", async (req, res) => {
+  try {
+   const questao = await Answer.findAll({
+     raw: true,
+     order: [
+      ["id", "DESC"], // DESC DECRESCENTE ASC CRESCENTE
+    ],
+   });
+   res.status(200).send(questao)
+  } catch (error) {
+ console.log(error);
+  }
+ });
 
 app.listen(8080, () => console.log("app rodando"));
