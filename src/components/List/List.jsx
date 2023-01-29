@@ -23,7 +23,7 @@ export default function List() {
     axios.get(`http://localhost:8080/answer`).then((res) => {
       setListAnswer(res.data);
     });
-  }, []);
+  }, [listAnswer]);
   return (
     <Container className="d-grid gap-3 p-4  ">
       <Alert variant="success">
@@ -40,9 +40,9 @@ export default function List() {
         </div>
       </Alert>
 
-      {listQuestions?.map((list) => {
+      {listQuestions?.map((list, id) => {
         return (
-          <Card key={list.id}>
+          <Card key={id}>
             <Card.Header
               className="text-white"
               as="h5"
@@ -67,10 +67,10 @@ export default function List() {
               </Link>
             </Card.Body>
             <Card>
-              {listAnswer?.map((answer) => {
+              {listAnswer?.map((answer, id) => {
                 if (answer.perguntumId === list.id) {
                   return (
-                    <Card.Body style={{ backgroundColor: "#777764" }}>
+                    <Card.Body key={id} style={{ backgroundColor: "#777764" }}>
                       <Card.Text className="text-white">
                         <p className="fw-bold">Resposta: {answer.body}</p> 
                       </Card.Text>

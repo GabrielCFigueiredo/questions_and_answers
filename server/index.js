@@ -87,4 +87,6 @@ app.get("/answer", async (req, res) => {
   }
  });
 
+ app.delete("")
+
 app.listen(8080, () => console.log("app rodando"));
