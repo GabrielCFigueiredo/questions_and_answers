@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Questions",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/": {
+        "get": {
+            "tags": ["Buscar Perguntas"],
+            "responses": {
+                "200": {
+                    "description": "Lista de Perguntas",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "Array",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type":"string"
+                                    }
+                                } 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/questions": {
+        "post": {
+            "tags": ["Criar Perguntas"],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type":"string"
+                                }
+                            },
+                            "example": {
+                                "title": "Produtos",
+                                "description": "comprar produtos"
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "400": {
+                    "description": "Erro ao criar a pergunta",
+                    "example": {
+                        "message": "Erro ao criar a questão"
+                    }
+                },
+                "201": {
+                    "description": "Pergunta criada com sucesso",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "message": "Pergunta criada com sucesso"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
+    
+  }

@@ -4,13 +4,18 @@ const bodyParser = require("body-parser");
 const connection = require("./database/database");
 const questions = require("./database/Questions_model");
 const Answer = require("./database/Answer_model");
-
+const swaggerUI = require("swagger-ui-express")
+const swagger = require("./swagger.json")
 const app = express();
+
+
+
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swagger))
 
 connection
   .authenticate()
@@ -22,13 +27,13 @@ connection
   });
 
 app.get("/", async (req, res) => {
-  const q = await questions.findAll({
+  const list = await questions.findAll({
     raw: true,
     order: [
       ["id", "DESC"], // DESC DECRESCENTE ASC CRESCENTE
     ],
   });
-  res.status(200).send(q);
+  res.status(200).send(list);
 });
 
 app.post("/questions", async (req, res) => {
@@ -42,7 +47,9 @@ app.post("/questions", async (req, res) => {
     })
     .then(() => {
       res.redirect("/");
-    });
+    }).catch((error) => {
+      res.status(400).send(error)
+    })
 });
 
 app.get("/questions/:id", async (req, res) => {
